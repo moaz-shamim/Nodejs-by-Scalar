@@ -1,5 +1,7 @@
 // Import the express module
 const express = require("express");
+const firstMiddleware = require('./middlewares/first.middleware.js')
+const secondMiddleware = require('./middlewares/second.middleware.js')
 
 // Create an Express application instance
 const app = express();
@@ -17,16 +19,10 @@ const courses = [
 app.use(express.json());
 
 // Custom middleware function to log a message before handling requests
-app.use(function (req, res, next) {
-  console.log("I am First Custom Middleware");
-  next(); // Pass control to the next middleware function
-});
+app.use(firstMiddleware);
 
 // Another custom middleware function to log a message
-app.use(function (req, res, next) {
-  console.log("I am Second Custom Middleware");
-  next(); // Pass control to the next middleware function
-});
+app.use(secondMiddleware);
 
 // Define routes and their corresponding handlers
 
