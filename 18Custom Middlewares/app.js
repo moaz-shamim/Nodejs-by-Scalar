@@ -1,7 +1,12 @@
 // Import the express module
 const express = require("express");
-const firstMiddleware = require('./middlewares/first.middleware.js')
-const secondMiddleware = require('./middlewares/second.middleware.js')
+
+// Import the Middlewares
+const firstMiddleware = require("./middlewares/first.middleware.js");
+const secondMiddleware = require("./middlewares/second.middleware.js");
+
+// Import the 3rd Party Morgan Middleware
+const morgan = require("morgan");
 
 // Create an Express application instance
 const app = express();
@@ -23,6 +28,11 @@ app.use(firstMiddleware);
 
 // Another custom middleware function to log a message
 app.use(secondMiddleware);
+
+// app.use(morgan())
+
+// HTTP request logger middleware for node.js
+app.use(morgan("tiny"))
 
 // Define routes and their corresponding handlers
 
