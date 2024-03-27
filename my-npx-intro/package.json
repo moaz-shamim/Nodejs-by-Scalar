@@ -1,5 +1,5 @@
 {
-  "name": "my-npx-intro",
+  "name": "hello-moaz",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
     "hello-moaz": "index.js"
   },
   "keywords": [],
-  "author": "Md Mo",
+  "author": "Md Moaz Shamim",
   "license": "ISC"
 }
