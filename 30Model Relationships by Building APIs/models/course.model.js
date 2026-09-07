@@ -1,48 +1,150 @@
 // Import required modules
-const Joi = require("joi"); // Import Joi for data validation
-const mongoose = require("mongoose"); // Import mongoose for MongoDB interaction
-const { categorySchema } = require("../models/category.model"); // Import category schema for validation
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
-// Define the Course model using Mongoose
-const Course = mongoose.model(
-  "Course",
-  new mongoose.Schema({
+// Define Course schema
+const courseSchema = new mongoose.Schema(
+  {
     title: {
       type: String,
       required: true,
       trim: true,
       minlength: 5,
-      maxlength: 255,
-    }, // Define the title field with required constraints
-    category: {
-      type: categorySchema, // Define the category field using the imported categorySchema
-      required: true, // Require a category for each course
+      maxlength: 100,
     },
-    creator: {
+
+    slug: {
       type: String,
       required: true,
-    }, // Define the creator field with required constraint
-    rating: {
+      unique: true,
+      lowercase: true,
+      trim: true,
+      maxlength: 120,
+    },
+
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 2000,
+    },
+
+    // Reference to Category model
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+
+    // Reference to Student model
+    instructor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      required: true,
+    },
+
+    price: {
       type: Number,
       required: true,
-    }, // Define the rating field with required constraint
-  })
+      min: 0,
+    },
+
+    level: {
+      type: String,
+      enum: ["beginner", "intermediate", "advanced"],
+      default: "beginner",
+    },
+
+    durationInHours: {
+      type: Number,
+      min: 0,
+    },
+
+    thumbnail: {
+      type: String,
+      trim: true,
+    },
+
+    rating: {
+      type: Number,
+      min: 0,
+      max: 5,
+      default: 0,
+    },
+
+    totalReviews: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+
+    isPublished: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-// Function to validate course data using Joi
+// Create Course model
+const Course = mongoose.model("Course", courseSchema);
+
+// Joi validation
 function validateCourse(course) {
-  // Define Joi schema for course validation
   const schema = Joi.object({
-    title: Joi.string().min(5).max(50).required(), // Validate the title field for length and required constraint
-    categoryId: Joi.string().required(), // Validate the categoryId field for required constraint
-    creator: Joi.string().min(5).required(), // Validate the creator field for length and required constraint
-    rating: Joi.number().min(0).required(), // Validate the rating field for minimum value and required constraint
+    title: Joi.string()
+      .trim()
+      .min(5)
+      .max(100)
+      .required(),
+
+    slug: Joi.string()
+      .trim()
+      .lowercase()
+      .max(120)
+      .required(),
+
+    description: Joi.string()
+      .trim()
+      .max(2000)
+      .required(),
+
+    category: Joi.string()
+      .required(),
+
+    instructor: Joi.string()
+      .required(),
+
+    price: Joi.number()
+      .min(0)
+      .required(),
+
+    level: Joi.string()
+      .valid("beginner", "intermediate", "advanced")
+      .default("beginner"),
+
+    durationInHours: Joi.number()
+      .min(0),
+
+    thumbnail: Joi.string()
+      .trim()
+      .allow("", null),
+
+    rating: Joi.number()
+      .min(0)
+      .max(5),
+
+    totalReviews: Joi.number()
+      .min(0),
+
+    isPublished: Joi.boolean(),
   });
 
-  // Validate the provided course object against the defined schema
   return schema.validate(course);
 }
 
-// Export the Course model and validateCourse function for use in other parts of the application
-exports.Course = Course; // Export the Course model
-exports.validate = validateCourse; // Export the validateCourse function
+// Export
+exports.Course = Course;
+exports.validate = validateCourse;

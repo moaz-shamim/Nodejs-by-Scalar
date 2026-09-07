@@ -9,26 +9,23 @@ const router = express.Router();
 //   { id: 3, name: "Photography" },
 // ];
 
-router.get("/api/categories", async (req, res) => {
-  let categories = await Category.find();
-  res.send(categories);
+router.get("/", async (req, res) => {
+	let categories = await Category.find();
+	res.send(categories);
 });
 
-router.post("/api/categories", async (req, res) => {
-  const { error } = validate(req.body);
+router.post("/", async (req, res) => {
+  const { error , value } = validate(req.body);
 
-  if (error) res.status(400).send(error.details[0].message);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
 
-  // const category = {
-  //   id: categories.length + 1,
-  //   name: req.body.name,
-  // };
-  const category = new Category({
-    name: req.body.name,
-  });
+  const category = new Category(value);
+
   await category.save();
-  // categories.push(category);
-  res.send(category);
+
+  res.status(201).send(category);
 });
 
 /*
@@ -45,39 +42,39 @@ router.put("/api/categories/:id", async (req, res) => {
 });
 */
 
-router.put("/api/categories/:id", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) res.status(400).send(error.details[0].message);
-  const category = await Category.findByIdAndUpdate(
-    req.params.id,
-    { name: req.body.name },
-    { new: true }
-  );
-  if (!category)
-    return res
-      .status(404)
-      .send("The category with the given ID was not found.");
-  res.send(category);
+router.put("/:id", async (req, res) => {
+	const { error } = validate(req.body);
+	if (error) res.status(400).send(error.details[0].message);
+	const category = await Category.findByIdAndUpdate(
+		req.params.id,
+		{ name: req.body.name },
+		{ new: true },
+	);
+	if (!category)
+		return res
+			.status(404)
+			.send("The category with the given ID was not found.");
+	res.send(category);
 });
 
-router.delete("/api/categories/:id", async (req, res) => {
-  // const category = categories.find((c) => c.id === parseInt(req.params.id));
-  const category = await Category.findByIdAndDelete(req.params.id);
+router.delete("/:id", async (req, res) => {
+	// const category = categories.find((c) => c.id === parseInt(req.params.id));
+	const category = await Category.findByIdAndDelete(req.params.id);
 
-  if (!category)
-    return res.status(404).send("The category with the given ID was not found");
-  // const index = categories.indexOf(category);
-  // categories.splice(index, 1);
-  res.send(category);
+	if (!category)
+		return res.status(404).send("The category with the given ID was not found");
+	// const index = categories.indexOf(category);
+	// categories.splice(index, 1);
+	res.send(category);
 });
 
-router.get("/api/categories/:id", async (req, res) => {
-  // const category = categories.find((c) => c.id === parseInt(req.params.id));
-  const category = await Category.findById(req.params.id);
+router.get("/:id", async (req, res) => {
+	// const category = categories.find((c) => c.id === parseInt(req.params.id));
+	const category = await Category.findById(req.params.id);
 
-  if (!category)
-    return res.status(404).send("The category with the given ID was not found");
-  res.send(category);
+	if (!category)
+		return res.status(404).send("The category with the given ID was not found");
+	res.send(category);
 });
 
 module.exports = router;

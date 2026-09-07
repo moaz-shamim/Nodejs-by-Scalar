@@ -20,10 +20,10 @@ mongoose
 app.use(express.json());
 
 // Middleware to handle requests related to categories
-app.use(categories);
+app.use("/api/categories",categories);
 
 // Middleware to handle requests related to students
-app.use(students);
+app.use("/api/students",students);
 
 // Middleware to handle requests related to courses
 app.use("/api/courses", courses);

@@ -2,26 +2,61 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-// Define the category schema using Mongoose
-const categorySchema = new mongoose.Schema({
-  name: { type: String, required: true, maxlength: 30, minlength: 3 }, // Define the name field with required constraints
-});
+// Define the Category schema
+const categorySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 50,
+    },
 
-// Create a Mongoose model for the category schema
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      maxlength: 70,
+    },
+
+    description: {
+      type: String,
+      maxlength: 500,
+      trim: true,
+    },
+
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// Create the Category model
 const Category = mongoose.model("Category", categorySchema);
 
-// Function to validate category data using Joi
+// Joi validation for creating/updating a category
 function validateData(category) {
-  // Define Joi schema for category validation
   const schema = Joi.object({
-    name: Joi.string().min(3).required(), // Validate the name field for minimum length and required constraint
+    name: Joi.string().trim().min(3).max(50).required(),
+
+    slug: Joi.string().trim().lowercase().max(70).required(),
+
+    description: Joi.string().trim().max(500).allow("", null),
+
+    isActive: Joi.boolean(),
   });
 
-  // Validate the provided category object against the defined schema
   return schema.validate(category);
-}
+};
 
-// Export the Category model, categorySchema, and validateData function
-exports.Category = Category; // Export the Category model
-exports.categorySchema = categorySchema; // Export the category schema
-exports.validate = validateData; // Export the validateData function
+// Export
+exports.Category = Category;
+exports.validate = validateData;
