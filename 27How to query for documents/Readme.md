@@ -95,3 +95,69 @@ db.collection.find({ $or: [ { age: { $lt: 25 } }, { gender: { $not: { $eq: "fema
 ```
 
 These examples demonstrate how logical query operators in MongoDB can be used to build more sophisticated queries by combining multiple conditions using logical AND, OR, NOT, and NOR operations.
+
+
+## 🟦 MongoDB → 🟩 SQL mapping
+
+### MongoDB
+
+```js
+Course.find({ rating: { $eq: 4.4 } })
+      .select({ name: 1, publishedDate: 1 });
+```
+
+### Equivalent SQL
+
+```sql
+SELECT name, publishedDate
+FROM courses
+WHERE rating = 4.4;
+```
+
+---
+
+## 🧠 1-to-1 concept comparison
+
+| MongoDB     | SQL                       |
+| ----------- | ------------------------- |
+| Database    | Database                  |
+| Collection  | Table                     |
+| Document    | Row                       |
+| Field       | Column                    |
+| `.find()`   | `SELECT ... FROM`         |
+| `.select()` | `SELECT column1, column2` |
+| `$eq`       | `=`                       |
+| `$gt`       | `>`                       |
+| `$gte`      | `>=`                      |
+| `$lt`       | `<`                       |
+| `$lte`      | `<=`                      |
+| `$ne`       | `!=`                      |
+| `.sort()`   | `ORDER BY`                |
+| `.limit()`  | `LIMIT`                   |
+
+---
+
+## 🧩 Important simplification (very important)
+
+This:
+
+```js
+{ rating: { $eq: 4.4 } }
+```
+
+Is **exactly the same as**:
+
+```js
+{ rating: 4.4 }
+```
+
+Just like SQL:
+
+```sql
+WHERE rating = 4.4
+```
+
+Use `$eq` only when:
+
+* You are learning operators
+* You need dynamic operator logic

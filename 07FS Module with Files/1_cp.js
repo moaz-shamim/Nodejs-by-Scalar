@@ -4,26 +4,26 @@ const fs = require("fs");
 // Read the content of file f1.txt synchronously and store it in 'fileContent'
 let fileContent = fs.readFileSync("f1.txt");
 
-// Output the content of file f1.txt to the console
-console.log("data of file 1 : " + fileContent);
+// Output the content of file f1.txt to the //  console
+ console.log("data of file 1 : " + fileContent);
 
 // Write data to file f2.txt synchronously
-fs.writeFileSync("f2.txt", "User is perform write operation on me");
+fs.writeFileSync("f2.txt", "i am moaz shamim");
 
 // Output a message indicating that file f2.txt has been written
-console.log("File 2 has been written");
+ console.log("File 2 has been written");
 
 // Append data to file f3.txt synchronously
-fs.appendFileSync("f3.txt", " Data appended on me.");
+fs.appendFileSync("f3.txt", " Data appended on me again and again.");
 
 // Output a message indicating that data has been appended to file f3.txt
-console.log("File 3 has been appended");
+//  console.log("File 3 has been appended");
 
 // Delete file f4.txt synchronously
-fs.unlinkSync("f4.txt");
+// fs.unlinkSync("f4.txt");
 
 // Output a message indicating that file f4.txt has been deleted
-console.log("File 4 has been deleted");
+//  console.log("File 4 has been deleted");
 
 // Write data to file f4.txt synchronously
 fs.writeFileSync("f4.txt", "I am created by using writeFileSync method only");
@@ -32,8 +32,8 @@ fs.writeFileSync("f4.txt", "I am created by using writeFileSync method only");
 // Get the statistics of the file "f1.txt" synchronously
 let stats = fs.statSync("f1.txt");
 
-// Output the statistics of the file to the console
-console.log(stats);
+// Output the statistics of the file to the //  console
+ console.log("stats",stats);
 
 
 

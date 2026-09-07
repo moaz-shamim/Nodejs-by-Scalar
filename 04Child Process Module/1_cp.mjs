@@ -1,14 +1,18 @@
 // Import the 'child_process' module with the alias 'cp'
 import cp from "child_process";
 
+console.log("cp",cp);
+// console.log("cp",cp.execFileSync.toString());
+
+
 // Execute the 'calc' command to open the calculator (for Windows systems)
 // cp.execSync("calc");
 
 // Execute the 'start chrome https://www.google.com/' command to open Google Chrome with the Google homepage
-// cp.execSync("start chrome https://www.google.com/");
+cp.execSync("start chrome https://www.google.com/");
 
 // Execute the 'node demo.js' command synchronously and capture the output
-console.log("Output " + cp.execSync("node demo.js"));
+// console.log("Output " + cp.execSync("node demo.js"));
 
 
 /*

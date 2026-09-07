@@ -9,14 +9,15 @@ console.log("Architecture: " + os.arch());
 
 // Retrieve information about the CPUs on the system
 const cpuInfo = os.cpus();
-console.log(cpuInfo);
+// console.log("cpuInfo",cpuInfo);
 
 // Retrieve information about the current user
-const user = os.userInfo();
-console.log(user);
+// const user = os.userInfo();
+// console.log("user",user);
 
 // Retrieve information about network interfaces on the system
-console.log(os.networkInterfaces());
+const network = os.networkInterfaces(); 
+console.log("network",network);
 
 
 

@@ -29,10 +29,10 @@ app.use(firstMiddleware);
 // Another custom middleware function to log a message
 app.use(secondMiddleware);
 
-// app.use(morgan())
+app.use(morgan())
 
 // HTTP request logger middleware for node.js
-app.use(morgan("tiny"))
+// app.use(morgan("tiny"))
 
 // Define routes and their corresponding handlers
 

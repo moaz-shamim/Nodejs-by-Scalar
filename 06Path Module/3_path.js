@@ -16,10 +16,10 @@ console.log(ext);
 console.log(basename);
 
 // Output the current file name (__filename) to the console
-console.log(__filename);
+console.log("__filename",__filename);
 
 // Output the directory name (__dirname) to the console
-console.log(__dirname);
+console.log("__dirname",__dirname);
 
 
 /*

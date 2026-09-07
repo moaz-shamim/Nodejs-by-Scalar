@@ -4,6 +4,9 @@ const express = require("express");
 // Create an Express application instance
 const app = express();
 
+// console.log("app",app.get.toString());
+
+
 // Define routes and their corresponding handlers
 
 // Route for the homepage (GET request)

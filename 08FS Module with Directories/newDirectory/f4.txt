@@ -1,1 +1,0 @@
-I am creted by using writeFileSync method only

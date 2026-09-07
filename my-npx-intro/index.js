@@ -20,7 +20,3 @@ function logDetails() {
   }
   // Call the function to log your details
   logDetails();
-
-  const github = 'https://github.com/moaz-shamim';
-const linkedinUrl = 'https://www.linkedin.com/in/md-moaz-shamim-241672211/';
-const portfolioUrl = 'https://catalyst-blog.vercel.app/';

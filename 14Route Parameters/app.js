@@ -25,11 +25,14 @@ app.get("/contact", (req, res) => {
 
 // The ":id" part in the route is a route parameter, which allows you to capture dynamic values from the URL
 app.get("/courses/:id", (req, res) => {
+   console.log("req",req);
+  
     // Inside the route handler function, access the value of the route parameter "id" using req.params.id
     // The value of req.params.id will be whatever value is provided in the URL in place of ":id"
     // For example, if the URL is "/courses/123", req.params.id will be "123"
     // Send the value of req.params.id as the response to the client
-    res.send(req.params.id);
+    // res.send(req.params.id);
+    res.send(req.query.name);
   });
   
 
